@@ -10,17 +10,38 @@
 <h:head>
 	<title>jsf-web</title>
 </h:head> 
-<body> 
-	<h1>#{Home.sayHello()}</h1>
-	<p:inputText value="" pt:placeholder="Watermark here"/>
-	<p:editor/>
-	<p:accordionPanel>
-		<p:tab title="First Tab Title">
-			<p:chart type="pie" model="#{chart.model}"/>
-		</p:tab>
-		<p:tab title="第二个Tab">
-			<h:outputText value="内容"/>
-		</p:tab>
-	</p:accordionPanel>
+<body style="font-size:0.8em;">
+	<p:layout fullPage="true">
+        <p:layoutUnit position="north" size="50">
+            <h:outputText value="Top content."/>
+        </p:layoutUnit>
+        <p:layoutUnit position="south" size="50">
+            <h:outputText value="Bottom content."/>
+        </p:layoutUnit>
+        <p:layoutUnit position="west" size="300" resizable="true" collapsible="true" minSize="160" header="Navigation">
+            <h:form>
+                <p:panelMenu>
+                    <p:submenu label="常用">
+                        <p:menuitem value="Home" icon="ui-icon-disk"/>
+                    </p:submenu>
+                    <p:submenu label="Help">
+                        <p:menuitem value="Help"/>
+                        <p:menuitem value="About"/>
+                        <p:submenu label="Submenu1">
+                            <p:menuitem value="1-1"/>
+                            <p:submenu label="Submenu2">
+                                <p:menuitem value="2-1"/>
+                                <p:menuitem value="2-2"/>
+                            </p:submenu>
+                        </p:submenu>
+                    </p:submenu>
+                </p:panelMenu>
+            </h:form>
+
+        </p:layoutUnit>
+        <p:layoutUnit position="center">
+            <h:outputText value="Center Content"/>
+        </p:layoutUnit>
+    </p:layout>
 </body> 
 </html>

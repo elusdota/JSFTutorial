@@ -5,3 +5,5 @@
 .springBeans
 .tern-project
 /src/main/webapp/WEB-INF/.faces-config.xml.jsfdia
+JSFTutorial.iml
+.idea/

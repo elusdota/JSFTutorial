@@ -2,3 +2,6 @@
 .settings/
 .classpath
 .project
+.springBeans
+.tern-project
+/src/main/webapp/WEB-INF/.faces-config.xml.jsfdia

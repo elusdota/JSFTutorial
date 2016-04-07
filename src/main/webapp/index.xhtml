@@ -2,12 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      > 
 
 <h:head>
 	<title>jsf-web</title>
 </h:head> 
 <body> 
 	<h1>#{Home.sayHello()}</h1>
+	<p:inputText value="" pt:placeholder="Watermark here"/>
+	<p:editor/>
+	<p:accordionPanel>
+		<p:tab title="First Tab Title">
+			<p:chart type="pie" model="#{chart.model}"/>
+		</p:tab>
+		<p:tab title="第二个Tab">
+			<h:outputText value="内容"/>
+		</p:tab>
+	</p:accordionPanel>
 </body> 
 </html>

@@ -1,9 +1,14 @@
 package org.shawn.tutorials.jsf;
 
-import org.springframework.stereotype.Component;
+import java.io.Serializable;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 
-@Component("user")
-public class UserBean {
+@ManagedBean(name = "user")
+@RequestScoped
+public class UserBean implements Serializable {
+	private static final long serialVersionUID = 7943186289177219060L;
+	
 	private String name = "";
 	private String password = "";
 	

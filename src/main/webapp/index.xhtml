@@ -1,15 +1,15 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-      > 
+      >
 
 <h:head>
 	<title>jsf-web</title>
-</h:head> 
+</h:head>
 <body style="font-size:0.8em;">
 	<p:layout fullPage="true">
         <p:layoutUnit position="north" size="50">
@@ -23,6 +23,14 @@
                 <p:panelMenu>
                     <p:submenu label="常用">
                         <p:menuitem value="Home" icon="ui-icon-disk"/>
+                    </p:submenu>
+                    <p:submenu label="权限管理">
+                        <p:menuitem value="用户管理" icon="ui-icon-disk"/>
+                        <p:menuitem value="机构管理" icon="ui-icon-disk"/>
+                    </p:submenu>
+                    <p:submenu label="平台开发">
+                        <p:menuitem value="权限管理" icon="ui-icon-disk"/>
+                        <p:menuitem value="内置图标" icon="ui-icon-disk"/>
                     </p:submenu>
                     <p:submenu label="Help">
                         <p:menuitem value="Help"/>
@@ -40,8 +48,32 @@
 
         </p:layoutUnit>
         <p:layoutUnit position="center">
+            <p:menubar>
+                <p:submenu label="File">
+                    <p:submenu label="New">
+                        <p:menuitem value="Project" url="#"/>
+                        <p:menuitem value="Other" url="#"/>
+                    </p:submenu>
+                    <p:menuitem value="Open" url="#"></p:menuitem>
+                    <p:menuitem value="Quit" url="#"></p:menuitem>
+                </p:submenu>
+                <p:submenu label="Edit">
+                    <p:menuitem value="Undo" url="#"></p:menuitem>
+                    <p:menuitem value="Redo" url="#"></p:menuitem>
+                </p:submenu>
+                <p:submenu label="Help">
+                    <p:menuitem value="Contents" url="#" />
+                    <p:submenu label="Search">
+                        <p:submenu label="Text">
+                            <p:menuitem value="Workspace" url="#" />
+                        </p:submenu>
+                        <p:menuitem value="File" url="#" />
+                    </p:submenu>
+                </p:submenu>
+            </p:menubar>
             <h:outputText value="Center Content"/>
+            <h:outputText value="#{header['User-Agent']}"/>
         </p:layoutUnit>
     </p:layout>
-</body> 
+</body>
 </html>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<f:view contentType="text/html">
+    <h:head>
+        <title>jsf-web</title>
+    </h:head>
+
+    <body style="font-size:0.8em;">
+    <p:layout fullPage="true">
+        <p:layoutUnit position="north" size="70">
+            <div style="text-align: center;">
+                <h:panelGrid cellpadding="5" columns="2"
+                             style="margin:0 auto; text-align: left;">
+                    <p:outputLabel for="user" value="#{msg['menubar.welcome']}"/>
+                    <h:outputText id="user" value="#{menuView.username}"/>
+                </h:panelGrid>
+            </div>
+            <div style="text-align: right;">
+                <form action="#{request.contextPath}/j_spring_security_logout">
+                    <input type="submit" value="#{msg['button.logout']}"/>
+                </form>
+            </div>
+        </p:layoutUnit>
+        <p:layoutUnit position="south" size="50">
+            <h:outputText value="Bottom content."/>
+        </p:layoutUnit>
+        <p:layoutUnit position="west" size="300" resizable="true" collapsible="true" minSize="160"
+                      header="Navigation">
+            <ui:include src="/jsf/navigation.xhtml"/>
+        </p:layoutUnit>
+        <p:layoutUnit position="center" header="Contents">
+            <h:form id="form">
+                <p:growl id="msgs" showDetail="true"/>
+            </h:form>
+            <h:form prependId="false">
+                <p:tabView id="WindowContainer" scrollable="true"
+                           dynamic="true" cache="true" activeIndex="#{tabMenuView.activeIndex}">
+                    <p:ajax event="tabChange" listener="#{tabMenuView.onTabChange}" update=":form:msgs"/>
+                    <p:ajax event="tabClose" listener="#{tabMenuView.onTabClose}" update=":form:msgs"/>
+                    <c:forEach items="#{tabMenuView.tabView.children}" var="tabModel" varStatus="loop">
+                        <p:tab title="#{tabModel.title}" closable="true">
+                            <ui:include src="#{tabModel.src}"/>
+                        </p:tab>
+                    </c:forEach>
+                    <!--<p:tab title="#{tabModel.title}" closable="true">-->
+                    <!--<h:outputText value="#{tabModel.ariaLabel}"/>-->
+                    <!--<f:subview id="pp">-->
+                    <!--<h:panelGroup id="mainTempPanelGroupId" layout="block">-->
+                    <!--<ui:include src="#{tabModel.ariaLabel}"/>-->
+                    <!--</h:panelGroup>-->
+                    <!--</f:subview>-->
+                    <!--&lt;!&ndash;<ui:include src="#{tabModel.ariaLabel}"/>&ndash;&gt;-->
+                    <!--</p:tab>-->
+                </p:tabView>
+            </h:form>
+        </p:layoutUnit>
+    </p:layout>
+    </body>
+</f:view>
+</html>

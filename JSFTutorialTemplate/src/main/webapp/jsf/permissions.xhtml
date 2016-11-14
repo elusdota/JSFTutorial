@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <p:treeTable value="#{permissionsView.root}" selectionMode="single" var="document" scrollHeight="360" scrollable="true">
+        <f:facet name="header">
+            #{msg['permission.view.title']}
+        </f:facet>
+        <p:ajax event="select" listener="#{permissionsView.onNodeSelect}" update=":form:msgs"/>
+        <p:column headerText="#{msg['permission.view.column.name']}"><h:outputText value="#{document.name}"/>
+        </p:column>
+        <p:column headerText="#{msg['permission.view.column.accessType']}">
+            <h:outputText value="#{document.accessType}"/>
+        </p:column>
+        <p:column headerText="#{msg['permission.view.column.src']}">
+            <h:outputText value="#{document.src}"/>
+        </p:column>
+        <p:column style="width: 48px">
+            <div class="ui-grid">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-6">
+                        <p:commandLink title="update" styleClass="ui-icon ui-icon-pencil"
+                                       update=":WindowContainer:permissionsPanel"
+                                       oncomplete="PF('permissionsdocumentDialog').show()">
+                            <f:setPropertyActionListener value="#{document}" target="#{permissionsView.selected}"/>
+                        </p:commandLink>
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <p:commandLink title="delete" update=":form:msgs" styleClass="ui-icon ui-icon-close">
+                            <f:setPropertyActionListener value="#{document}" target="#{permissionsView.selected}" />
+                            <f:actionListener binding="#{permissionsView.remove()}" />
+                        </p:commandLink>
+                    </div>
+                </div>
+            </div>
+        </p:column>
+    </p:treeTable>
+    <p:dialog id="permissionsdialog" header="Document Detail" showEffect="fade" widgetVar="permissionsdocumentDialog"
+              modal="true" resizable="false" appendTo="@(body)">
+        <p:outputPanel id="permissionsPanel">
+            <p:panelGrid columns="2" columnClasses="label,value" rendered="#{not empty permissionsView.selected}">
+                <h:outputLabel for="name" value="Name: "/>
+                <h:outputText id="name" value="#{permissionsView.selected.name}" style="font-weight:bold"/>
+
+                <h:outputLabel for="size" value="Size: "/>
+                <h:outputText id="size" value="#{permissionsView.selected.accessType}" style="font-weight:bold"/>
+
+                <h:outputLabel for="type" value="Type "/>
+                <h:outputText id="type" value="#{permissionsView.selected.src}" style="font-weight:bold"/>
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+</ui:composition>
+

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>create-account</title>
+    <style type="text/css">
+        .ui-widget {
+            font-size: 90%;
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <h:form prependId="false">
+        <p:growl id="msgs" showDetail="true"/>
+        <p:panel id="panel" header="New account">
+            <h:panelGrid columns="3" cellpadding="5">
+                <h:outputLabel for="name" value="#{msg['user.name']}"/>
+                <p:inputText id="name" value="#{createAccountView.name}" required="true" label="Name"/>
+                <p:message for="name" display="icon"/>
+                <h:outputLabel for="password" value="#{msg['user.password']}"/>
+                <p:inputText id="password" value="#{createAccountView.password}" required="true"  label="Password"/>
+                <p:message for="password" id="msgpassword" display="icon"/>
+            </h:panelGrid>
+            <p:commandButton value="#{msg['button.submit']}" actionListener="#{createAccountView.create}"  validateClient="true"
+                             icon="fa fa-fw fa-check" update="panel">
+            </p:commandButton>
+        </p:panel>
+    </h:form>
+</h:body>
+</html>

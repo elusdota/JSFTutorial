@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <div class="ui-grid">
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-6">
+                <h:panelGrid columns="2" id="button">
+                    <p:commandButton value="#{msg['button.create.role']}" rendered="#{roleView.create}"
+                                     disabled="#{!roleView.disabled}"
+                                     icon="fa fa-fw fa-plus" actionListener="#{roleDataView.viewCreate}">
+                        <p:ajax event="dialogReturn" listener="#{createRoleView.onSubmit}"
+                                update=":form:msgs :WindowContainer:treeRoleAccount"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{msg['button.create.organization']}" icon="fa fa-fw fa-plus"
+                                     rendered="#{roleView.createOrganization}" disabled="#{!roleView.disabled}"/>
+                </h:panelGrid>
+                <p:treeTable id="treeRoleAccount" var="document" value="#{roleDataView.root1}"
+                             selectionMode="single" scrollable="true" scrollHeight="360">
+                    <p:ajax event="select" listener="#{roleDataView.onNodeSelect}"
+                            update=":form:msgs :WindowContainer:treeRolePermissions :WindowContainer:button :WindowContainer:edit"/>
+                    <p:column headerText="name">
+                        <h:outputText value="#{document.name}"/>
+                    </p:column>
+                </p:treeTable>
+            </div>
+            <div class="ui-grid-col-6">
+                <h:panelGrid columns="2" id="edit">
+                    <p:commandButton value="#{msg['button.edit']}" icon="fa fa-fw fa-edit"
+                                     rendered="#{roleView.permission}" disabled="#{!roleView.editDisabled}"
+                                     actionListener="#{roleDataView.edit}"
+                                     update=":WindowContainer:treeRolePermissions :WindowContainer:edit"/>
+                    <p:commandButton value="#{msg['button.over']}" icon="fa fa-fw fa-edit"
+                                     rendered="#{roleView.retirement}"
+                                     actionListener="#{roleDataView.retirement}"
+                                     update=":WindowContainer:treeRolePermissions :WindowContainer:edit"/>
+                </h:panelGrid>
+                <p:treeTable id="treeRolePermissions" var="document" value="#{roleDataView.root2}" scrollable="true"
+                             scrollHeight="360">
+                    <p:column headerText="name">
+                        <h:outputText value="#{document.name}"/>
+                    </p:column>
+                    <p:column headerText="Operation">
+                        <p:selectBooleanCheckbox disabled="#{!roleView.edit}"
+                                                 value="#{document.accountHas}">
+                            <p:ajax listener="#{roleDataView.setPermission(document.id,document.accountHas)}" update=":form:msgs"/>
+                        </p:selectBooleanCheckbox>
+                    </p:column>
+                </p:treeTable>
+            </div>
+        </div>
+    </div>
+</ui:composition>
